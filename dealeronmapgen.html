@@ -9,6 +9,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+    <script src="public/dealerOnMapGen.js"></script>
     <title>DealerOn Contact and Map Gen</title>
   </head>
   <body>
@@ -22,7 +23,7 @@
       <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
-          <form action="">
+          <form id="mapGen">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="logoURL" name="logoURL" placeholder="img.jpg" />
               <label for="logoURL" class="form-label">Logo URL</label>
@@ -41,23 +42,188 @@
               <label for="phoneNum" class="form-label">Phone Number</label>
               <div id="phoneHelp">Format: 123-456-7890</div>
             </div>
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="addy" name="addy" placeholder="123 1st st" />
+              <label for="addy" class="form-label">Address</label>
+            </div>
             <div class="row">
-              <div class="col-3">
-                <div class="form-floating mt-4">
-                  Monday
+              <div class="col-2">
+                <div class="form-floating mt-4">Monday</div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="monOpen">Open</label>
+                  <input id="monOpen" type="time" class="form-control" name="monOpen" />
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 <div class="mb-3">
-                    <label class="form-label" for="monOpen">Open</label>
-                    <input id="monOpen" type="time" class="form-control">
+                  <label class="form-label" for="monClose">Closed</label>
+                  <input id="monClose" type="time" class="form-control" name="monClose" />
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-2 mt-5">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="monClosed">
+                                  <label class="form-check-label" for="monClosed">
+                                    Closed
+                                  </label>
+                                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="form-floating mt-4">Tuesday</div>
+              </div>
+              <div class="col-4">
                 <div class="mb-3">
-                    <label class="form-label" for="monClose">Closed</label>
-                    <input id="monClose" type="time" class="form-control">
+                  <label class="form-label" for="tuesOpen">Open</label>
+                  <input id="tuesOpen" type="time" class="form-control" name="tuesOpen" />
                 </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="tuesClose">Closed</label>
+                  <input id="tuesClose" type="time" class="form-control" name="tuesClose" />
+                </div>
+              </div>
+                            <div class="col-2 mt-5">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tuesClosed">
+                                <label class="form-check-label" for="tuesClosed">
+                                  Closed
+                                </label>
+                              </div>
+                            </div>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="form-floating mt-4">Wednesday</div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="wedOpen">Open</label>
+                  <input id="wedOpen" type="time" class="form-control" name="wedOpen" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="wedClose">Closed</label>
+                  <input id="wedClose" type="time" class="form-control" name="wedClose" />
+                </div>
+              </div>
+                            <div class="col-2 mt-5">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="wedClosed">
+                                <label class="form-check-label" for="wedClosed">
+                                  Closed
+                                </label>
+                              </div>
+                            </div>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="form-floating mt-4">Thursday</div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="thurOpen">Open</label>
+                  <input id="thurOpen" type="time" class="form-control" name="thurOpen" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="thurClose">Closed</label>
+                  <input id="thurClose" type="time" class="form-control" name="thurClose" />
+                </div>
+              </div>
+                            <div class="col-2 mt-5">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="thurClosed">
+                                <label class="form-check-label" for="thurClosed">
+                                  Closed
+                                </label>
+                              </div>
+                            </div>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="form-floating mt-4">Friday</div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="friOpen">Open</label>
+                  <input id="friOpen" type="time" class="form-control" name="friOpen" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="friClose">Closed</label>
+                  <input id="friClose" type="time" class="form-control" name="friClose" />
+                </div>
+              </div>
+                            <div class="col-2 mt-5">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="friClosed">
+                                <label class="form-check-label" for="friClosed">
+                                  Closed
+                                </label>
+                              </div>
+                            </div>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="form-floating mt-4">Saturday</div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="satOpen">Open</label>
+                  <input id="satOpen" type="time" class="form-control" name="satOpen" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="satClose">Closed</label>
+                  <input id="satClose" type="time" class="form-control" name="satClose" />
+                </div>
+              </div>
+                            <div class="col-2 mt-5">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="satClosed">
+                                <label class="form-check-label" for="satClosed">
+                                  Closed
+                                </label>
+                              </div>
+                            </div>
+            </div>
+            <div class="row">
+              <div class="col-2">
+                <div class="form-floating mt-4">Sunday</div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="sunOpen">Open</label>
+                  <input id="sunOpen" type="time" class="form-control" name="sunOpen" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="mb-3">
+                  <label class="form-label" for="wedClose">Closed</label>
+                  <input id="sunClose" type="time" class="form-control" name="sunClose" />
+                </div>
+              </div>
+                            <div class="col-2 mt-5">
+                              <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="sunClosed">
+                                <label class="form-check-label" for="sunClosed">
+                                  Closed
+                                </label>
+                              </div>
+                            </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-end">
+                <button class="btn btn-primary" role="button">Generate!</button>
               </div>
             </div>
           </form>
@@ -65,6 +231,51 @@
         <div class="col-3"></div>
       </div>
     </div>
+
+    <div class="modal fade" id="codeModal" tabindex="-1" aria-labelledby="codeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="codeModalLabel">Here's your code!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Add this to the top of the DealerOn page:</p>
+            <pre>
+          <code>
+&lt;style&gt;
+  .footerContactMap{
+    margin-left: 4%;
+    margin-right: 4%;
+  }
+  @media screen and (min-width: 1200px) {
+    .row-same-height {
+      overflow: hidden;
+      }
+
+    .row-same-height &gt; div {
+      margin-bottom: -2000px !important;
+      padding-bottom: 2000px !important;
+      }
+  }
+&lt;/style&gt;
+          </code>
+        </pre>
+        <br>
+        <p>Add this code to the bottom of the page:</p>
+        <pre>
+          <code id="outputCodeBlock">
+
+          </code>
+        </pre>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
