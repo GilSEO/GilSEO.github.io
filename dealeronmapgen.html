@@ -13,31 +13,39 @@
     <title>DealerOn Contact and Map Gen</title>
   </head>
   <body>
-        <nav class="navbar navbar-expand-lg bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-              <img src="images\lametoolslogo.jpg" alt="Logo" width="45" height="45" class="d-inline-block">
-              GLT</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/">Home</a>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tools
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/dealeronmapgen.html">DealerOn Map Gen</a></li>
-                  </ul>
-                </li>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="images\lametoolslogo.jpg" alt="Logo" width="45" height="45" class="d-inline-block" />
+          GLT</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Tools </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/dealeronmapgen.html">DealerOn Map Gen</a></li>
               </ul>
-            </div>
-          </div>
-        </nav>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
@@ -50,7 +58,7 @@
         <div class="col-12 col-md-6">
           <form id="mapGen">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="logoURL" name="logoURL" placeholder="img.jpg" required/>
+              <input type="text" class="form-control" id="logoURL" name="logoURL" placeholder="img.jpg" required />
               <label for="logoURL" class="form-label">Logo URL</label>
             </div>
             <div class="form-floating mb-3">
@@ -68,7 +76,7 @@
               <div id="phoneHelp">Format: 123-456-7890</div>
             </div>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="addy" name="addy" placeholder="123 1st st" required/>
+              <input type="text" class="form-control" id="addy" name="addy" placeholder="123 1st st" required />
               <label for="addy" class="form-label">Address</label>
             </div>
             <div class="row">
@@ -88,12 +96,10 @@
                 </div>
               </div>
               <div class="col-2 mt-5">
-                                <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="" id="monClosed">
-                                  <label class="form-check-label" for="monClosed">
-                                    Closed
-                                  </label>
-                                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="monClosed" />
+                  <label class="form-check-label" for="monClosed"> Closed </label>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -112,14 +118,12 @@
                   <input id="tuesClose" type="time" class="form-control" name="tuesClose" />
                 </div>
               </div>
-                            <div class="col-2 mt-5">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="tuesClosed">
-                                <label class="form-check-label" for="tuesClosed">
-                                  Closed
-                                </label>
-                              </div>
-                            </div>
+              <div class="col-2 mt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="tuesClosed" />
+                  <label class="form-check-label" for="tuesClosed"> Closed </label>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-2">
@@ -137,14 +141,12 @@
                   <input id="wedClose" type="time" class="form-control" name="wedClose" />
                 </div>
               </div>
-                            <div class="col-2 mt-5">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="wedClosed">
-                                <label class="form-check-label" for="wedClosed">
-                                  Closed
-                                </label>
-                              </div>
-                            </div>
+              <div class="col-2 mt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="wedClosed" />
+                  <label class="form-check-label" for="wedClosed"> Closed </label>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-2">
@@ -162,14 +164,12 @@
                   <input id="thurClose" type="time" class="form-control" name="thurClose" />
                 </div>
               </div>
-                            <div class="col-2 mt-5">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="thurClosed">
-                                <label class="form-check-label" for="thurClosed">
-                                  Closed
-                                </label>
-                              </div>
-                            </div>
+              <div class="col-2 mt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="thurClosed" />
+                  <label class="form-check-label" for="thurClosed"> Closed </label>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-2">
@@ -187,14 +187,12 @@
                   <input id="friClose" type="time" class="form-control" name="friClose" />
                 </div>
               </div>
-                            <div class="col-2 mt-5">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="friClosed">
-                                <label class="form-check-label" for="friClosed">
-                                  Closed
-                                </label>
-                              </div>
-                            </div>
+              <div class="col-2 mt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="friClosed" />
+                  <label class="form-check-label" for="friClosed"> Closed </label>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-2">
@@ -212,14 +210,12 @@
                   <input id="satClose" type="time" class="form-control" name="satClose" />
                 </div>
               </div>
-                            <div class="col-2 mt-5">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="satClosed">
-                                <label class="form-check-label" for="satClosed">
-                                  Closed
-                                </label>
-                              </div>
-                            </div>
+              <div class="col-2 mt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="satClosed" />
+                  <label class="form-check-label" for="satClosed"> Closed </label>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-2">
@@ -237,14 +233,12 @@
                   <input id="sunClose" type="time" class="form-control" name="sunClose" />
                 </div>
               </div>
-                            <div class="col-2 mt-5">
-                              <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="sunClosed">
-                                <label class="form-check-label" for="sunClosed">
-                                  Closed
-                                </label>
-                              </div>
-                            </div>
+              <div class="col-2 mt-5">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="sunClosed" />
+                  <label class="form-check-label" for="sunClosed"> Closed </label>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-12 text-end">
@@ -286,9 +280,9 @@
 &lt;/style&gt;
           </code>
         </pre>
-        <br>
-        <p>Add this code to the bottom of the page:</p>
-        <pre>
+            <br />
+            <p>Add this code to the bottom of the page:</p>
+            <pre>
           <code id="outputCodeBlock">
 
           </code>
