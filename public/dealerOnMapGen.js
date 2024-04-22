@@ -103,7 +103,7 @@ window.addEventListener("DOMContentLoaded", function () {
       <div class="footerContactMap">
         <div class="row row-same-height">
           <div class="col-lg-4">
-            <p style="text-align: center"><img src="${logoUrl}" alt="" /></p>
+            <p style="text-align: center"><img width="50%" src="${logoUrl}" alt="" /></p>
             <p style="text-align: center; font-size: 3.5rem"><a href="tel:${phoneNum}" style="color: black">${phoneNum}</a></p>
             <table class="table">
               <thead>
