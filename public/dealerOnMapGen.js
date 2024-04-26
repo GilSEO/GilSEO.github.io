@@ -152,7 +152,7 @@ window.addEventListener("DOMContentLoaded", function () {
               </tbody>
             </table>
           </div>
-          <div class="col-lg-8 embed-responsive embed-responsive-16by9">
+          <div class="col-lg-8 embed-responsive embed-responsive-16by9 mapFrame">
             <iframe
               class="embed-responsive-item"
               src="https://www.google.com/maps/embed/v1/place?q=${address}&key=AIzaSyB8uKypMnuWh66dtG4mmhoTNU9-deQzrmo"
