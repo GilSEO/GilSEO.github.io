@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded", function () {
         sunOpen = 'Closed'
     }
     if(sunClose != ''){
-        sunClose = removeZero(sunOpen);
+        sunClose = removeZero(sunClose);
     } else{
         sunClose = 'Closed'
     }
