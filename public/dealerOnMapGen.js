@@ -21,75 +21,75 @@ window.addEventListener("DOMContentLoaded", function () {
     let outputCodeBlock = document.getElementById('outputCodeBlock');
 
 
-    if(monOpen != ''){
-        monOpen = removeZero(monOpen);
+    if (monOpen != '') {
+      monOpen = removeZero(monOpen);
     } else {
-        monOpen = 'Closed'
+      monOpen = 'Closed'
     }
-    if(monClose != ''){
-        monClose = removeZero(monClose);
+    if (monClose != '') {
+      monClose = removeZero(monClose);
     } else {
-        monClose = 'Closed'
+      monClose = 'Closed'
     }
-    if(tuesOpen != ''){
-        tuesOpen = removeZero(tuesOpen);
-    } else{
-        tuesOpen = 'Closed'
+    if (tuesOpen != '') {
+      tuesOpen = removeZero(tuesOpen);
+    } else {
+      tuesOpen = 'Closed'
     }
-    if(tuesClose != ''){
-        tuesClose = removeZero(tuesClose);
-    } else{
-        tuesClose = 'Closed'
+    if (tuesClose != '') {
+      tuesClose = removeZero(tuesClose);
+    } else {
+      tuesClose = 'Closed'
     }
-    if(wedOpen != ''){
-        wedOpen = removeZero(wedOpen);
-    } else{
-        wedOpen = 'Closed'
+    if (wedOpen != '') {
+      wedOpen = removeZero(wedOpen);
+    } else {
+      wedOpen = 'Closed'
     }
-    if(wedClose != ''){
-        wedClose = removeZero(wedClose);
-    } else{
-        wedClose = 'Closed'
+    if (wedClose != '') {
+      wedClose = removeZero(wedClose);
+    } else {
+      wedClose = 'Closed'
     }
-    if(thurOpen != ''){
-        thurOpen = removeZero(thurOpen);
-    } else{
-        thurOpen = 'Closed'
+    if (thurOpen != '') {
+      thurOpen = removeZero(thurOpen);
+    } else {
+      thurOpen = 'Closed'
     }
-    if(thurClose != ''){
-        thurClose = removeZero(thurClose);
-    } else{
-        thurClose = 'Closed'
+    if (thurClose != '') {
+      thurClose = removeZero(thurClose);
+    } else {
+      thurClose = 'Closed'
     }
-    if(friOpen != ''){
-        friOpen = removeZero(friOpen);
-    } else{
-        friOpen = 'Closed'
+    if (friOpen != '') {
+      friOpen = removeZero(friOpen);
+    } else {
+      friOpen = 'Closed'
     }
-    if(friClose != ''){
-        friClose = removeZero(friClose);
-    } else{
-        friClose = 'Closed'
+    if (friClose != '') {
+      friClose = removeZero(friClose);
+    } else {
+      friClose = 'Closed'
     }
-    if(satOpen != ''){
-        satOpen = removeZero(satOpen);
-    } else{
-        satOpen = 'Closed'
+    if (satOpen != '') {
+      satOpen = removeZero(satOpen);
+    } else {
+      satOpen = 'Closed'
     }
-    if(satClose != ''){
-        satClose = removeZero(satClose);
-    } else{
-        satClose = 'Closed'
+    if (satClose != '') {
+      satClose = removeZero(satClose);
+    } else {
+      satClose = 'Closed'
     }
-    if(sunOpen != ''){
-        sunOpen = removeZero(sunOpen);
-    } else{
-        sunOpen = 'Closed'
+    if (sunOpen != '') {
+      sunOpen = removeZero(sunOpen);
+    } else {
+      sunOpen = 'Closed'
     }
-    if(sunClose != ''){
-        sunClose = removeZero(sunOpen);
-    } else{
-        sunClose = 'Closed'
+    if (sunClose != '') {
+      sunClose = removeZero(sunOpen);
+    } else {
+      sunClose = 'Closed'
     }
 
     logoURL = encodeURI(logoURL);
@@ -171,63 +171,105 @@ window.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  document.getElementById('monClosed').onchange = function() {
+  document.getElementById('monClosed').onchange = function () {
     document.getElementById('monOpen').disabled = this.checked;
     document.getElementById('monClose').disabled = this.checked;
     document.getElementById('monOpen').value = '';
     document.getElementById('monClose').value = '';
-};
+  };
 
-  document.getElementById('tuesClosed').onchange = function() {
+  document.getElementById('tuesClosed').onchange = function () {
     document.getElementById('tuesOpen').disabled = this.checked;
     document.getElementById('tuesClose').disabled = this.checked;
     document.getElementById('tuesOpen').value = '';
     document.getElementById('tuesClose').value = '';
-};
+  };
 
-  document.getElementById('wedClosed').onchange = function() {
+  document.getElementById('tuesSame').onchange = function () {
+    document.getElementById('tuesOpen').disabled = this.checked;
+    document.getElementById('tuesClose').disabled = this.checked;
+    document.getElementById('tuesOpen').value = document.getElementById('monOpen').value;
+    document.getElementById('tuesClose').value = document.getElementById('monClose').value;
+  }
+
+  document.getElementById('wedClosed').onchange = function () {
     document.getElementById('wedOpen').disabled = this.checked;
     document.getElementById('wedClose').disabled = this.checked;
     document.getElementById('wedOpen').value = '';
     document.getElementById('wedClose').value = '';
-};
+  };
 
-  document.getElementById('thurClosed').onchange = function() {
+  document.getElementById('wedSame').onchange = function () {
+    document.getElementById('wedOpen').disabled = this.checked;
+    document.getElementById('wedClose').disabled = this.checked;
+    document.getElementById('wedOpen').value = document.getElementById('tuesOpen').value;
+    document.getElementById('wedClose').value = document.getElementById('tuesClose').value;
+  };
+
+  document.getElementById('thurClosed').onchange = function () {
     document.getElementById('thurOpen').disabled = this.checked;
     document.getElementById('thurClose').disabled = this.checked;
     document.getElementById('thurOpen').value = '';
     document.getElementById('thurClose').value = '';
-};
+  };
 
-  document.getElementById('friClosed').onchange = function() {
+  document.getElementById('thursSame').onchange = function () {
+    document.getElementById('thurOpen').disabled = this.checked;
+    document.getElementById('thurClose').disabled = this.checked;
+    document.getElementById('thurOpen').value = document.getElementById('wedOpen').value;
+    document.getElementById('thurClose').value = document.getElementById('wedClose').value;
+  };
+
+  document.getElementById('friClosed').onchange = function () {
     document.getElementById('friOpen').disabled = this.checked;
     document.getElementById('friClose').disabled = this.checked;
     document.getElementById('friOpen').value = '';
     document.getElementById('friClose').value = '';
-};
+  };
 
-  document.getElementById('satClosed').onchange = function() {
+  document.getElementById('friSame').onchange = function () {
+    document.getElementById('friOpen').disabled = this.checked;
+    document.getElementById('friClose').disabled = this.checked;
+    document.getElementById('friOpen').value = document.getElementById('thurOpen').value;
+    document.getElementById('friClose').value = document.getElementById('thurClose').value;
+  };
+
+  document.getElementById('satClosed').onchange = function () {
     document.getElementById('satOpen').disabled = this.checked;
     document.getElementById('satClose').disabled = this.checked;
     document.getElementById('satOpen').value = '';
     document.getElementById('satClose').value = '';
-};
+  };
 
-  document.getElementById('sunClosed').onchange = function() {
+  document.getElementById('satSame').onchange = function () {
+    document.getElementById('satOpen').disabled = this.checked;
+    document.getElementById('satClose').disabled = this.checked;
+    document.getElementById('satOpen').value = document.getElementById('friOpen').value;
+    document.getElementById('satClose').value = document.getElementById('friClose').value;
+  };
+
+  document.getElementById('sunClosed').onchange = function () {
     document.getElementById('sunOpen').disabled = this.checked;
     document.getElementById('sunClose').disabled = this.checked;
     document.getElementById('sunOpen').value = '';
     document.getElementById('sunClose').value = '';
-};
+  };
+
+  document.getElementById('sunSame').onchange = function () {
+    document.getElementById('sunOpen').disabled = this.checked;
+    document.getElementById('sunClose').disabled = this.checked;
+    document.getElementById('sunOpen').value = document.getElementById('satClose').value;
+    document.getElementById('sunClose').value = document.getElementById('satClose').value;
+  };
 
 
 });
 
 function removeZero(req) {
   const timeString12hr = new Date('1970-01-01T' + req + 'Z')
-  .toLocaleTimeString('en-US',
-    {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
-  );
+    .toLocaleTimeString('en-US',
+      { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+    );
 
   return timeString12hr;
 }
