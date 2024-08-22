@@ -93,7 +93,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
     logoURL = encodeURI(logoURL);
-    address = encodeURI(address);
+    address = encodeURIComponent(address);
 
 
 
