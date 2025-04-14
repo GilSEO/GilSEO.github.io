@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Minifier Tool</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1,
+      h2 {
+        color: #333;
+      }
+      textarea {
+        width: 100%;
+        height: 150px;
+        margin-bottom: 10px;
+        font-family: monospace;
+        padding: 8px;
+      }
+      .output-container {
+        width: 100%;
+        height: 150px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px;
+        padding: 8px;
+        overflow: auto;
+        font-family: monospace;
+        background-color: #f5f5f5;
+      }
+      .button-container {
+        margin: 10px 0 20px 0;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .options-container {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      .option-row {
+        margin-bottom: 10px;
+      }
+      #stats {
+        background-color: #e8f5e9;
+        padding: 10px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>HTML Minifier Tool</h1>
+
+    <h2>Advanced Options</h2>
+    <div class="options-container">
+      <div class="option-row">
+        <input type="checkbox" id="remove-html-comments" checked />
+        <label for="remove-html-comments">Remove HTML Comments</label>
+      </div>
+
+      <div class="option-row">
+        <input type="checkbox" id="remove-css-comments" checked />
+        <label for="remove-css-comments">Remove CSS Comments</label>
+      </div>
+
+      <div class="option-row">
+        <input type="checkbox" id="collapse-whitespace" checked />
+        <label for="collapse-whitespace">Collapse Whitespace</label>
+      </div>
+
+      <div class="option-row">
+        <input type="checkbox" id="preserve-span-spacing" checked />
+        <label for="preserve-span-spacing">Preserve Span Spacing</label>
+      </div>
+
+      <div class="option-row">
+        <input type="checkbox" id="preserve-pre" checked />
+        <label for="preserve-pre">Preserve Line Breaks in Pre</label>
+      </div>
+
+      <div class="option-row">
+        <input type="checkbox" id="remove-quotes" />
+        <label for="remove-quotes">Remove Attribute Quotes</label>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button id="advancedMinifyButton">Advanced Minify</button>
+    </div>
+
+    <h2>Advanced Output</h2>
+    <div class="output-container" id="html-output"></div>
+
+    <h2>Statistics</h2>
+    <div id="stats">Minify your HTML to see statistics</div>
+
+    <script>
+      /**
+       * Minifies HTML content by removing whitespace while preserving spacing around span elements
+       * @param {string} html - The HTML content to minify
+       * @return {string} - The minified HTML content
+       */
+      function minifyHTML(html) {
+        if (!html) return "";
+
+        // Step 1: Mark spans to preserve their spacing
+        let markedHtml = html.replace(/(<span[^>]*>)([\s\S]*?)(<\/span>)/gi, function (match, openTag, content, closeTag) {
+          // Keep the content as is, but mark the opening and closing tags
+          return `###SPAN_OPEN###${openTag}${content}${closeTag}###SPAN_CLOSE###`;
+        });
+
+        // Step 2: Remove CSS comments
+        markedHtml = markedHtml.replace(/\/\*[\s\S]*?\*\//g, "");
+
+        // Step 3: Remove HTML comments
+        markedHtml = markedHtml.replace(/<!--[\s\S]*?-->/g, "");
+
+        // Step 4: Remove whitespace between tags
+        let minified = markedHtml
+          .replace(/>\s+</g, "><")
+          .replace(/\s+</g, "<")
+          .replace(/>\s+/g, ">")
+          .replace(/\r?\n|\r/g, "")
+          .replace(/\s{2,}/g, " ");
+
+        // Step 5: Restore spacing around spans
+        minified = minified.replace(/###SPAN_OPEN###/g, "").replace(/###SPAN_CLOSE###/g, "");
+
+        return minified;
+      }
+
+      /**
+       * More advanced HTML minification with additional options
+       * @param {string} html - The HTML content to minify
+       * @param {Object} options - Configuration options
+       * @return {string} - The minified HTML content
+       */
+      function advancedMinifyHTML(html, options = {}) {
+        const defaultOptions = {
+          removeHtmlComments: true,
+          removeCssComments: true,
+          collapseWhitespace: true,
+          preserveSpanSpacing: true,
+          preserveLineBreaksInPre: true,
+          removeAttributeQuotes: false,
+        };
+
+        const config = { ...defaultOptions, ...options };
+        let result = html;
+
+        // Store pre blocks to protect their content
+        const preBlocks = [];
+        if (config.preserveLineBreaksInPre) {
+          result = result.replace(/<pre\b[^>]*>([\s\S]*?)<\/pre>/gi, function (match) {
+            preBlocks.push(match);
+            return `###PRE_BLOCK_${preBlocks.length - 1}###`;
+          });
+        }
+
+        // Store style blocks to handle CSS separately
+        const styleBlocks = [];
+        result = result.replace(/<style\b[^>]*>([\s\S]*?)<\/style>/gi, function (match, styleContent) {
+          let processedStyle = styleContent;
+
+          // Remove CSS comments if enabled
+          if (config.removeCssComments) {
+            processedStyle = processedStyle.replace(/\/\*[\s\S]*?\*\//g, "");
+          }
+
+          styleBlocks.push("<style>" + processedStyle + "</style>");
+          return `###STYLE_BLOCK_${styleBlocks.length - 1}###`;
+        });
+
+        // Store span elements if preserveSpanSpacing is enabled
+        const spanElements = [];
+        if (config.preserveSpanSpacing) {
+          result = result.replace(/(<span\b[^>]*>)([\s\S]*?)(<\/span>)/gi, function (match, openTag, content, closeTag) {
+            spanElements.push({ openTag, content, closeTag });
+            return `###SPAN_${spanElements.length - 1}###`;
+          });
+        }
+
+        // Remove HTML comments
+        if (config.removeHtmlComments) {
+          result = result.replace(/<!--[\s\S]*?-->/g, "");
+        }
+
+        // Remove inline CSS comments in style attributes
+        if (config.removeCssComments) {
+          result = result.replace(/style="([^"]*)"/gi, function (match, styleContent) {
+            return 'style="' + styleContent.replace(/\/\*[\s\S]*?\*\//g, "") + '"';
+          });
+        }
+
+        // Collapse whitespace
+        if (config.collapseWhitespace) {
+          result = result
+            .replace(/>\s+</g, "><")
+            .replace(/\s+</g, "<")
+            .replace(/>\s+/g, ">")
+            .replace(/\r?\n|\r/g, "")
+            .replace(/\s{2,}/g, " ");
+        }
+
+        // Remove attribute quotes where possible
+        if (config.removeAttributeQuotes) {
+          result = result.replace(/="\s*([a-zA-Z0-9-_]+)\s*"/g, "=$1");
+        }
+
+        // Restore span elements with proper spacing
+        if (config.preserveSpanSpacing) {
+          spanElements.forEach((span, index) => {
+            result = result.replace(`###SPAN_${index}###`, `${span.openTag}${span.content}${span.closeTag}`);
+          });
+        }
+
+        // Restore style blocks
+        styleBlocks.forEach((block, index) => {
+          result = result.replace(`###STYLE_BLOCK_${index}###`, block);
+        });
+
+        // Restore pre blocks
+        if (config.preserveLineBreaksInPre) {
+          preBlocks.forEach((block, index) => {
+            result = result.replace(`###PRE_BLOCK_${index}###`, block);
+          });
+        }
+
+        return result;
+      }
+
+      // Basic minify button
+      document.getElementById("minifyButton").addEventListener("click", function () {
+        const htmlInput = document.getElementById("html-input").value;
+        const minifiedHTML = minifyHTML(htmlInput);
+        document.getElementById("output").textContent = minifiedHTML;
+
+        // Show statistics for basic minification
+        const originalSize = new Blob([htmlInput]).size;
+        const minifiedSize = new Blob([minifiedHTML]).size;
+        const savings = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(2) : 0;
+
+        document.getElementById("stats").textContent = `Original: ${originalSize} bytes | Minified: ${minifiedSize} bytes | Savings: ${savings}%`;
+      });
+
+      // Advanced minify button
+      document.getElementById("advancedMinifyButton").addEventListener("click", function () {
+        const htmlInput = document.getElementById("html-input").value;
+
+        const options = {
+          removeHtmlComments: document.getElementById("remove-html-comments").checked,
+          removeCssComments: document.getElementById("remove-css-comments").checked,
+          collapseWhitespace: document.getElementById("collapse-whitespace").checked,
+          preserveSpanSpacing: document.getElementById("preserve-span-spacing").checked,
+          preserveLineBreaksInPre: document.getElementById("preserve-pre").checked,
+          removeAttributeQuotes: document.getElementById("remove-quotes").checked,
+        };
+
+        const minifiedHTML = advancedMinifyHTML(htmlInput, options);
+        document.getElementById("html-output").textContent = minifiedHTML;
+
+        // Show statistics
+        const originalSize = new Blob([htmlInput]).size;
+        const minifiedSize = new Blob([minifiedHTML]).size;
+        const savings = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(2) : 0;
+
+        document.getElementById("stats").textContent = `Original: ${originalSize} bytes | Minified: ${minifiedSize} bytes | Savings: ${savings}%`;
+      });
+
+      // Add example HTML on page load
+      window.addEventListener("load", function () {
+        document.getElementById("html-input").value = `<!DOCTYPE html>
+<html>
+  <head>
+    <title>Example HTML</title>
+    <style>
+      /* This is a CSS comment that should be removed */
+      body {
+        font-family: Arial, sans-serif;
+        color: #333; /* Dark gray text */
+      }
+      .container {
+        margin: 0 auto;
+        width: 80%; /* Use 80% of the screen width */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <p>This is a <span>sample</span> paragraph with some text.</p>
+    <!-- This is an HTML comment that will be removed -->
+    <div style="padding: 20px; /* Add some padding */ color: blue;">
+      Inline styles with comments
+    </div>
+    <pre>
+      function example() {
+        console.log("This formatting should be preserved");
+        // This comment inside pre should be preserved
+      }
+    </pre>
+  </body>
+</html>`;
+      });
+    </script>
+  </body>
+</html>
