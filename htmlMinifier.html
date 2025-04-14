@@ -137,46 +137,6 @@
     </div>
 
     <script>
-      /**
-       * Minifies HTML content by removing whitespace while preserving spacing around span elements
-       * @param {string} html - The HTML content to minify
-       * @return {string} - The minified HTML content
-       */
-      function minifyHTML(html) {
-        if (!html) return "";
-
-        // Step 1: Mark spans to preserve their spacing
-        let markedHtml = html.replace(/(<span[^>]*>)([\s\S]*?)(<\/span>)/gi, function (match, openTag, content, closeTag) {
-          // Keep the content as is, but mark the opening and closing tags
-          return `###SPAN_OPEN###${openTag}${content}${closeTag}###SPAN_CLOSE###`;
-        });
-
-        // Step 2: Remove CSS comments
-        markedHtml = markedHtml.replace(/\/\*[\s\S]*?\*\//g, "");
-
-        // Step 3: Remove HTML comments
-        markedHtml = markedHtml.replace(/<!--[\s\S]*?-->/g, "");
-
-        // Step 4: Remove whitespace between tags
-        let minified = markedHtml
-          .replace(/>\s+</g, "><")
-          .replace(/\s+</g, "<")
-          .replace(/>\s+/g, ">")
-          .replace(/\r?\n|\r/g, "")
-          .replace(/\s{2,}/g, " ");
-
-        // Step 5: Restore spacing around spans
-        minified = minified.replace(/###SPAN_OPEN###/g, "").replace(/###SPAN_CLOSE###/g, "");
-
-        return minified;
-      }
-
-      /**
-       * More advanced HTML minification with additional options
-       * @param {string} html - The HTML content to minify
-       * @param {Object} options - Configuration options
-       * @return {string} - The minified HTML content
-       */
       function advancedMinifyHTML(html, options = {}) {
         const defaultOptions = {
           removeHtmlComments: true,
