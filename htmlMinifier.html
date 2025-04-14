@@ -231,20 +231,6 @@
         return result;
       }
 
-      // Basic minify button
-      document.getElementById("minifyButton").addEventListener("click", function () {
-        const htmlInput = document.getElementById("html-input").value;
-        const minifiedHTML = minifyHTML(htmlInput);
-        document.getElementById("output").textContent = minifiedHTML;
-
-        // Show statistics for basic minification
-        const originalSize = new Blob([htmlInput]).size;
-        const minifiedSize = new Blob([minifiedHTML]).size;
-        const savings = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(2) : 0;
-
-        document.getElementById("stats").textContent = `Original: ${originalSize} bytes | Minified: ${minifiedSize} bytes | Savings: ${savings}%`;
-      });
-
       // Advanced minify button
       document.getElementById("advancedMinifyButton").addEventListener("click", function () {
         const htmlInput = document.getElementById("html-input").value;
