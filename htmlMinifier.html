@@ -294,20 +294,30 @@
       }
 
       function copyToClipboard(text) {
-        if (!text) return;
+        if (!text) {
+          console.error("No text to copy");
+          return;
+        }
+
+        // Log for debugging
+        console.log("Attempting to copy text:", text.substring(0, 50) + "...");
 
         // Use the Clipboard API if available
-        if (navigator.clipboard) {
+        if (navigator.clipboard && window.isSecureContext) {
           navigator.clipboard
             .writeText(text)
-            .then(() => showToast())
+            .then(() => {
+              console.log("Clipboard API: Text copied successfully");
+              showToast();
+            })
             .catch((err) => {
-              console.error("Could not copy text: ", err);
+              console.error("Clipboard API Error:", err);
               // Fallback method
               fallbackCopyToClipboard(text);
             });
         } else {
           // Fallback method for browsers without clipboard API
+          console.log("Clipboard API not available, using fallback method");
           fallbackCopyToClipboard(text);
         }
       }
@@ -317,17 +327,16 @@
        * @param {string} text - Text to copy to clipboard
        */
       function fallbackCopyToClipboard(text) {
-        // Create a temporary textarea element
-        const textArea = document.createElement("textarea");
+        // Use the hidden textarea
+        const textArea = document.getElementById("clipboard-temp");
         textArea.value = text;
-        textArea.style.position = "fixed"; // Avoid scrolling to bottom
-        document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
 
         try {
           const successful = document.execCommand("copy");
           if (successful) {
+            console.log("Fallback: Text copied successfully");
             showToast();
           } else {
             console.error("Fallback: Copying text failed");
@@ -335,8 +344,6 @@
         } catch (err) {
           console.error("Fallback: Unable to copy", err);
         }
-
-        document.body.removeChild(textArea);
       }
 
       /**
@@ -374,6 +381,19 @@
         const savings = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(2) : 0;
 
         document.getElementById("stats").textContent = `Original: ${originalSize} bytes | Minified: ${minifiedSize} bytes | Savings: ${savings}%`;
+      });
+
+      document.getElementById("copy-advanced").addEventListener("click", function () {
+        if (advancedMinifiedContent) {
+          copyToClipboard(advancedMinifiedContent);
+        } else {
+          const outputText = document.getElementById("html-output").textContent;
+          if (outputText) {
+            copyToClipboard(outputText);
+          } else {
+            console.error("No content to copy from advanced output");
+          }
+        }
       });
 
       // Add example HTML on page load
