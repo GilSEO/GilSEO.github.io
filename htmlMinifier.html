@@ -195,6 +195,8 @@
       <h2>Statistics</h2>
       <div id="stats">Minify your HTML to see statistics</div>
 
+      <div id="raw-advanced-output" style="display: none"></div>
+
       <div id="toast-notification" class="toast">Copied to clipboard!</div>
     </div>
 
@@ -299,51 +301,36 @@
           return;
         }
 
-        // Log for debugging
-        console.log("Attempting to copy text:", text.substring(0, 50) + "...");
-
-        // Use the Clipboard API if available
-        if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard
-            .writeText(text)
-            .then(() => {
-              console.log("Clipboard API: Text copied successfully");
-              showToast();
-            })
-            .catch((err) => {
-              console.error("Clipboard API Error:", err);
-              // Fallback method
-              fallbackCopyToClipboard(text);
-            });
-        } else {
-          // Fallback method for browsers without clipboard API
-          console.log("Clipboard API not available, using fallback method");
-          fallbackCopyToClipboard(text);
-        }
-      }
-
-      /**
-       * Fallback method to copy text to clipboard
-       * @param {string} text - Text to copy to clipboard
-       */
-      function fallbackCopyToClipboard(text) {
-        // Use the hidden textarea
-        const textArea = document.getElementById("clipboard-temp");
-        textArea.value = text;
-        textArea.focus();
-        textArea.select();
-
-        try {
-          const successful = document.execCommand("copy");
-          if (successful) {
-            console.log("Fallback: Text copied successfully");
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            console.log("Text copied successfully");
             showToast();
-          } else {
-            console.error("Fallback: Copying text failed");
-          }
-        } catch (err) {
-          console.error("Fallback: Unable to copy", err);
-        }
+          })
+          .catch((err) => {
+            console.error("Could not copy text: ", err);
+            // Fallback method
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+              const successful = document.execCommand("copy");
+              if (successful) {
+                console.log("Fallback: Text copied successfully");
+                showToast();
+              } else {
+                console.error("Fallback: Copying text failed");
+              }
+            } catch (err) {
+              console.error("Fallback: Unable to copy", err);
+            }
+
+            document.body.removeChild(textArea);
+          });
       }
 
       /**
@@ -374,6 +361,7 @@
         };
 
         advancedMinifiedContent = advancedMinifyHTML(htmlInput, options);
+        document.getElementById("raw-advanced-output").textContent = advancedMinifiedContent;
         document.getElementById("html-output").textContent = advancedMinifiedContent;
 
         // Show statistics
@@ -385,15 +373,12 @@
       });
 
       document.getElementById("copy-advanced").addEventListener("click", function () {
-        if (advancedMinifiedContent) {
-          copyToClipboard(advancedMinifiedContent);
+        // Get the raw, unformatted minified content
+        const rawOutput = document.getElementById("raw-advanced-output").textContent;
+        if (rawOutput) {
+          copyToClipboard(rawOutput);
         } else {
-          const outputText = document.getElementById("html-output").textContent;
-          if (outputText) {
-            copyToClipboard(outputText);
-          } else {
-            console.error("No content to copy from advanced output");
-          }
+          console.error("No content to copy from advanced output");
         }
       });
 
