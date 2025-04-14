@@ -17,11 +17,14 @@
         font-family: monospace;
         padding: 8px;
       }
+      .output-wrapper {
+        position: relative;
+        margin-bottom: 20px;
+      }
       .output-container {
         width: 100%;
         height: 150px;
         border: 1px solid #ccc;
-        margin-bottom: 20px;
         padding: 8px;
         overflow: auto;
         font-family: monospace;
@@ -43,6 +46,22 @@
       button:hover {
         background-color: #45a049;
       }
+      .copy-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: #6c757d;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        z-index: 10;
+      }
+      .copy-btn:hover {
+        background-color: #5a6268;
+      }
       .options-container {
         background-color: #f9f9f9;
         padding: 15px;
@@ -57,6 +76,44 @@
         padding: 10px;
         border-radius: 4px;
         font-weight: bold;
+      }
+      .toast {
+        visibility: hidden;
+        min-width: 200px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 4px;
+        padding: 16px;
+        position: fixed;
+        z-index: 1000;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .toast.show {
+        visibility: visible;
+        animation: fadein 0.5s, fadeout 0.5s 2s;
+      }
+      @keyframes fadein {
+        from {
+          bottom: 0;
+          opacity: 0;
+        }
+        to {
+          bottom: 30px;
+          opacity: 1;
+        }
+      }
+      @keyframes fadeout {
+        from {
+          bottom: 30px;
+          opacity: 1;
+        }
+        to {
+          bottom: 0;
+          opacity: 0;
+        }
       }
     </style>
   </head>
@@ -130,10 +187,15 @@
       </div>
 
       <h2>Advanced Output</h2>
-      <div class="output-container" id="html-output"></div>
+      <div class="output-wrapper">
+        <div class="output-container" id="html-output"></div>
+        <button class="copy-btn" id="copy-advanced">Copy</button>
+      </div>
 
       <h2>Statistics</h2>
       <div id="stats">Minify your HTML to see statistics</div>
+
+      <div id="toast-notification" class="toast">Copied to clipboard!</div>
     </div>
 
     <script>
@@ -229,6 +291,65 @@
         }
 
         return result;
+      }
+
+      function copyToClipboard(text) {
+        if (!text) return;
+
+        // Use the Clipboard API if available
+        if (navigator.clipboard) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => showToast())
+            .catch((err) => {
+              console.error("Could not copy text: ", err);
+              // Fallback method
+              fallbackCopyToClipboard(text);
+            });
+        } else {
+          // Fallback method for browsers without clipboard API
+          fallbackCopyToClipboard(text);
+        }
+      }
+
+      /**
+       * Fallback method to copy text to clipboard
+       * @param {string} text - Text to copy to clipboard
+       */
+      function fallbackCopyToClipboard(text) {
+        // Create a temporary textarea element
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed"; // Avoid scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+          const successful = document.execCommand("copy");
+          if (successful) {
+            showToast();
+          } else {
+            console.error("Fallback: Copying text failed");
+          }
+        } catch (err) {
+          console.error("Fallback: Unable to copy", err);
+        }
+
+        document.body.removeChild(textArea);
+      }
+
+      /**
+       * Show toast notification
+       */
+      function showToast() {
+        const toast = document.getElementById("toast-notification");
+        toast.className = "toast show";
+
+        // After 3 seconds, hide the toast
+        setTimeout(function () {
+          toast.className = toast.className.replace("show", "");
+        }, 3000);
       }
 
       // Advanced minify button
