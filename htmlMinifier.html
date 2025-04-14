@@ -359,6 +359,7 @@
         }, 3000);
       }
 
+      let advancedMinifiedContent = "";
       // Advanced minify button
       document.getElementById("advancedMinifyButton").addEventListener("click", function () {
         const htmlInput = document.getElementById("html-input").value;
@@ -372,12 +373,12 @@
           removeAttributeQuotes: document.getElementById("remove-quotes").checked,
         };
 
-        const minifiedHTML = advancedMinifyHTML(htmlInput, options);
-        document.getElementById("html-output").textContent = minifiedHTML;
+        advancedMinifiedContent = advancedMinifyHTML(htmlInput, options);
+        document.getElementById("html-output").textContent = advancedMinifiedContent;
 
         // Show statistics
         const originalSize = new Blob([htmlInput]).size;
-        const minifiedSize = new Blob([minifiedHTML]).size;
+        const minifiedSize = new Blob([advancedMinifiedContent]).size;
         const savings = originalSize > 0 ? (((originalSize - minifiedSize) / originalSize) * 100).toFixed(2) : 0;
 
         document.getElementById("stats").textContent = `Original: ${originalSize} bytes | Minified: ${minifiedSize} bytes | Savings: ${savings}%`;
